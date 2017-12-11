@@ -3,41 +3,40 @@ console.log('Starting myNotes.js');
 const fs = require('fs');
 
 var fetchNotes = () => {
-	
+	// load file
+	try {
+		var noteString = fs.readFileSync('notes-data.json');
+		return JSON.parse(noteString);	
+	} catch (e) {
+		return [];
+	}
 };
 
 var saveNotes = (notes) => {
-
+	fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+	// convert notes obj to string and write into notes-data
 };
 
 var addNote = (title, body) => {
 	// console.log('Adding note', title, body);
-	var notes = [];
+	var notes = fetchNotes();
 	var note = {
 		title,
 		body
 	};
-
-	// load file
-	try {
-		var noteString = fs.readFileSync('notes-data.json');
-		notes = JSON.parse(noteString);	
-	} catch (e) {
-
-	}
 
 	// var duplicateNotes = notes.filter((note) => {
 	// 	return duplicateNotes.title = title;
 	// });
 
 	var duplicateNotes = notes.filter((note) => note.title === title);
-	// arrow function
+	// arrow function to filter duplicate notes in the notes array used with lodash
 
 	// write to file
 	if (duplicateNotes.length === 0) {
 		notes.push(note); // add a single note into notes arr
-		fs.writeFileSync('notes-data.json', JSON.stringify(notes));
-		// convert notes obj to string and write into notes-data	
+		saveNotes(notes);
+		return note;
 	}
 	
 };

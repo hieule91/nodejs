@@ -43,7 +43,13 @@ console.log('Yargs:', argv);
 
 if (command === 'add') {
 	// console.log('Adding new note');
-	notes.addNote(argv.title, argv.body);
+	var note = notes.addNote(argv.title, argv.body);
+	if (note === undefined) { // or if (note)
+		console.log('The note is already in use!');
+	} else {
+		// console.log('A new note is created with', argv.title, argv.body);
+		console.log(`A new note created with Title: ${note.title} and Body: ${note.body}`);
+	}
 } else if (command === 'list') {
 	// console.log('Listing all notes');
 	notes.getAll();	
