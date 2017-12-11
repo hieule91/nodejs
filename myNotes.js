@@ -50,7 +50,27 @@ var read = (title) => {
 };
 
 var remove = (title) => {
-	console.log('Remove a note', title);
+	// console.log('Remove a note', title);
+
+	// fetch notes
+	var notes = fetchNotes();
+
+	// filter notes, removing the one with title of argument
+	var filteredNotes = notes.filter((note) => note.title !== title);
+	// save new notes array
+	saveNotes(filteredNotes);
+
+	return notes.length !== filteredNotes.length;
+	// if (filteredNotes.length === 1) {
+	// 	// can't use pop since pop take in no argument and only pop from back
+ 	// 		// notes.pop();
+ 	// 		var removeIndex = notes.indexOf(notes.title);
+ 	// 		console.log(removeIndex);
+ 	// 		if (removeIndex > -1) { // check for out of bound
+ 	// 			notes.splice(removeIndex, 1);
+ 	// 		}
+ 	// 		saveNotes(notes);
+	// }
 };
 
 module.exports = {

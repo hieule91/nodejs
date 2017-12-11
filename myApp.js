@@ -57,8 +57,10 @@ if (command === 'add') {
 	// console.log('Reading a note');
 	notes.read(argv.title);
 } else if (command === 'remove') {
-	// console.log('Removing a note'); 
-	notes.remove(argv.title);
+	// console.log('Removing a note');
+	var noteRemoved = notes.remove(argv.title);
+	var message = noteRemoved ? 'Remove note successful' : 'Note not found';
+	console.log(message);
 } else {
 	console.log('Command not found');
 }
